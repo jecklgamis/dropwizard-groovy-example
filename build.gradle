@@ -1,0 +1,45 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = 'dropwizard.groovy.example.ExampleApp'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "io.dropwizard:dropwizard-core:1.2.0"
+    compile "io.dropwizard:dropwizard-testing:1.2.0"
+    compile 'org.codehaus.groovy:groovy-all:2.4.10'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.1'
+    compile 'com.google.guava:guava:21.0'
+    testCompile 'junit:junit:4.12'
+}
+
+jar {
+    manifest {
+        attributes 'Description': 'An example Dropwizard app using Groovy'
+        attributes 'Main-Class': 'dropwizard.groovy.example.ExampleApp'
+    }
+}
+
+shadowJar {
+    mergeServiceFiles()
+    baseName = "dropwizard-groovy-example"
+    classifier = ''
+    version = ''
+}
+
